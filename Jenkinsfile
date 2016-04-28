@@ -1,4 +1,4 @@
-node (docker) {
+node ('docker') {
     stage "SCM Synch"
     scm checkout
     git url: 'https://github.com/sjeeva/docker-birthday-3.git'
