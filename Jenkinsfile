@@ -1,8 +1,9 @@
 node ('docker') {
     stage "SCM Synch"
-    scm checkout
+    checkout scm 
     git url: 'https://github.com/sjeeva/docker-birthday-3.git'
-    scm checkout
+    checkout scm 
+
     stage "Dummy"
     sh "pwd"
     sh "ls -l"
