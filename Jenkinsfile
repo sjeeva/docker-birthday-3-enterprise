@@ -1,5 +1,3 @@
-#Jenkinsfile for docker birthday app PaaC demo
-
 node (docker) {
     stage "SCM Synch"
     scm checkout
