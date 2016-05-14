@@ -13,7 +13,7 @@ node ('docker') {
     }
     
     stage "Deploy Birthday App"
-    cp docker-compose.basic.yml birthdaysrc/example-voting-app/
+    sh cp docker-compose.basic.yml birthdaysrc/example-voting-app/
     dir("birthdaysrc/example-voting-app") {
         sh "docker-compose -p autong -f docker-compose.yml -f docker-compose.basic.yml stop"
         sh "docker-compose -p autong -f docker-compose.yml -f docker-compose.basic.yml rm -f"
