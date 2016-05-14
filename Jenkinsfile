@@ -1,4 +1,7 @@
 node ('docker') {
+    stage "Checkout Configuration Source"
+    checkout scm
+    
     stage "Checkout Birthday Source"
     dir("birthdaysrc") {
         git url: "https://github.com/sjeeva/docker-birthday-3.git"
