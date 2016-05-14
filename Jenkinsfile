@@ -8,7 +8,7 @@ node ('docker') {
     sh "ls -l"
     dir("birthdaysrc/example-voting-app") {
         sh "ls -l"
-        # sh "docker-compose -p autong -f docker-compose.yml build"
+        sh "echo docker-compose -p autong -f docker-compose.yml build"
     }
     
 }
