@@ -5,10 +5,10 @@ node ('docker') {
     }
     
     stage "Build Birthday"
-    dir("birthdaysrc") {
-    
-        sh "pwd"
+    sh "ls -l"
+    dir("birthdaysrc/example-voting-app") {
         sh "ls -l"
+        # sh "docker-compose -p autong -f docker-compose.yml build"
     }
     
 }
