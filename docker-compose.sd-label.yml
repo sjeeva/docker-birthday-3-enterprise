@@ -2,11 +2,15 @@ version: "2"
 
 services:
   voting-app:
+    ports:
+      - 80
     labels:
       - "interlock.hostname=votingApp"
       - "interlock.domain=git2swarm.com"
 
   result-app:
+    ports:
+      - 80
     labels:
       - "interlock.hostname=results"
       - "interlock.domain=git2swarm.com"
