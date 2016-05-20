@@ -1,4 +1,4 @@
-node ('docker') {
+node ('swarm') {
     stage "Checkout Configuration Source"
     checkout scm
     
@@ -9,20 +9,25 @@ node ('docker') {
     
     stage "Build Birthday App"
     dir("birthdaysrc/example-voting-app") {
-        sh "docker-compose -p autong -f docker-compose.yml build"
+        sh "docker-compose -p hbswarm -f docker-compose.yml build"
     }
     
+    stage "Halt Services"
+    sh "docker-compose -p hbswarm down"
+
+    stage "Configure Deployment Environment"
+    sh "cp docker-compose.sd-launch.yml birthdaysrc/example-voting-app/"
+    sh "cp docker-compose.sd-label.yml birthdaysrc/example-voting-app/"
+
     stage "Deploy Birthday App"
-    sh "cp docker-compose.basic.yml birthdaysrc/example-voting-app/"
     dir("birthdaysrc/example-voting-app") {
-        sh "docker-compose -p autong -f docker-compose.yml -f docker-compose.sd-label.yml stop"
-        sh "docker-compose -p autong -f docker-compose.yml -f docker-compose.sd-label.yml rm -f"
-        sh "docker-compose -p autong -f docker-compose.yml -f docker-compose.sd-label.yml up -d"
+        sh "docker-compose -p hbswarm -f docker-compose.sd-launch.yml up -d"
+        sh "docker-compose -p hbswarm -f docker-compose.yml -f docker-compose.sd-label.yml up -d"
     }
     
     stage "Publish Birthday App details"
     dir("birthdaysrc/example-voting-app") {
-        sh "docker-compose -p autong -f docker-compose.yml -f docker-compose.sd-label.yml ps"
+        sh "docker-compose -p hbswarm ps"
     }
     
 }
