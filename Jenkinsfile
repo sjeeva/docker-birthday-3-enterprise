@@ -30,7 +30,7 @@ node ('swarm') {
     
     stage "Publish Birthday App details"
     dir("birthdaysrc/example-voting-app") {
-        sh "docker-compose -p serv ps"
+        sh "docker-compose -p serv -f docker-compose.sd-launch.yml ps"
         sh "docker-compose ps"
     }
     
