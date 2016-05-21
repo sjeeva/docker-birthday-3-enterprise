@@ -9,13 +9,13 @@ node ('swarm') {
     
     stage "Build Birthday App"
     dir("birthdaysrc/example-voting-app") {
-        sh "docker-compose -p hbswarm -f docker-compose.yml build"
+        sh "docker-compose -f docker-compose.yml build"
     }
     
     stage "Halt Services"
     dir("birthdaysrc/example-voting-app") {
-        sh "docker-compose -p hbswarm -f docker-compose.yml -f docker-compose.sd-label.yml down"
-        sh "docker-compose -p hbswarm -f docker-compose.sd-launch.yml down"
+        sh "docker-compose -f docker-compose.yml -f docker-compose.sd-label.yml down"
+        sh "docker-compose -p serv -f docker-compose.sd-launch.yml down"
     }
 
     stage "Configure Deployment Environment"
@@ -24,15 +24,14 @@ node ('swarm') {
 
     stage "Deploy Birthday App"
     dir("birthdaysrc/example-voting-app") {
-        sh "docker-compose -p hbswarm -f docker-compose.sd-launch.yml up -d"
-        sh "docker-compose -p hbswarm -f docker-compose.yml -f docker-compose.sd-label.yml up -d"
+        sh "docker-compose -p serv -f docker-compose.sd-launch.yml up -d"
+        sh "docker-compose -f docker-compose.yml -f docker-compose.sd-label.yml up -d"
     }
     
     stage "Publish Birthday App details"
     dir("birthdaysrc/example-voting-app") {
-        sh "docker-compose -p hbswarm ps"
+        sh "docker-compose -p serv ps"
+        sh "docker-compose ps"
     }
     
 }
-
- 
