@@ -14,7 +14,8 @@ node ('swarm') {
     
     stage "Halt Services"
     dir("birthdaysrc/example-voting-app") {
-        sh "docker-compose -p hbswarm down"
+        sh "docker-compose -p hbswarm -f docker-compose.yml -f docker-compose.sd-label.yml down"
+        sh "docker-compose -p hbswarm -f docker-compose.sd-launch.yml down"
     }
 
     stage "Configure Deployment Environment"
