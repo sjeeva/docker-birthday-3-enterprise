@@ -30,8 +30,8 @@ node ('swarm') {
     
     stage "Scale Birthday App"
     dir("birthdaysrc/example-voting-app") {
-        sh "docker-compose -f docker-compose.yml -f docker-compose.sd-label.yml scale voting-app=3
-        sh "docker-compose -f docker-compose.yml -f docker-compose.sd-label.yml scale result-app=2
+        sh "docker-compose -f docker-compose.yml -f docker-compose.sd-label.yml scale voting-app=3"
+        sh "docker-compose -f docker-compose.yml -f docker-compose.sd-label.yml scale result-app=2"
     }
     
     stage "Publish Birthday App details"
