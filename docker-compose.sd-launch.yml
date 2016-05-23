@@ -4,6 +4,7 @@ services:
   interlock:
     image: ehazlett/interlock:1.0.1
     command: -D run
+    container_name: interlock
     tty: true
     ports:
         - 8080
@@ -32,11 +33,8 @@ services:
         - "constraint:node==ip-172-31-1-154"
     labels:
         - "interlock.ext.name=nginx"
-    links:
-        - interlock:interlock
     volumes:
         - nginx:/etc/conf
-
 
 volumes:
   nginx:
