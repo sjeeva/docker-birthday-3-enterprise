@@ -28,10 +28,15 @@ node ('swarm') {
         sh "docker-compose -f docker-compose.yml -f docker-compose.sd-label.yml up -d"
     }
     
+    stage "Scale Birthday App"
+    dir("birthdaysrc/example-voting-app") {
+        sh "docker-compose -f docker-compose.yml -f docker-compose.sd-label.yml scale voting-app=3
+        sh "docker-compose -f docker-compose.yml -f docker-compose.sd-label.yml scale result-app=2
+    }
+    
     stage "Publish Birthday App details"
     dir("birthdaysrc/example-voting-app") {
         sh "docker-compose -p serv -f docker-compose.sd-launch.yml ps"
         sh "docker-compose ps"
     }
-    
 }
