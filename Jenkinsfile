@@ -3,8 +3,8 @@ node ('swarm') {
     checkout scm
     
     stage "Checkout Birthday Source"
-    dir(${env.DEVPROJROOTDIR}) {
-        git url: ${env.DEVPROJROOTURL}
+    dir("${env.DEVPROJROOTDIR}") {
+        git url: "${env.DEVPROJROOTURL}"
     }
     
     stage "Build Birthday App"
