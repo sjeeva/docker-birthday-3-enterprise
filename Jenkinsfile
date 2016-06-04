@@ -7,6 +7,10 @@ node ('swarm') {
         git url: "${env.DEVPROJROOTURL}"
     }
     
+    stage "Configure Deployment Environment"
+    sh "cp docker-compose.sd-launch.yml ${env.DEVPROJCOMPOSEDIR}"
+    sh "cp docker-compose.sd-label.yml ${env.DEVPROJCOMPOSEDIR}"
+    
     stage "Build Application"
     dir("${env.DEVPROJCOMPOSEDIR}") {
         sh "docker-compose -f docker-compose.yml build"
@@ -17,10 +21,6 @@ node ('swarm') {
         sh "docker-compose -f docker-compose.yml -f docker-compose.sd-label.yml down"
         sh "docker-compose -p serv -f docker-compose.sd-launch.yml down"
     }
-
-    stage "Configure Deployment Environment"
-    sh "cp docker-compose.sd-launch.yml ${env.DEVPROJCOMPOSEDIR}"
-    sh "cp docker-compose.sd-label.yml ${env.DEVPROJCOMPOSEDIR}"
 
     stage "Deploy Birthday App"
     dir("${env.DEVPROJCOMPOSEDIR}") {
